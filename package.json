@@ -1,15 +1,16 @@
 {
   "name": "promptguard",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "private": true,
   "description": "A managed privacy-first proxy layer for LLM inference — redacting PII, blocking prompt injections, and securing your model API without changing your backend.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "tsc",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint . --ext .ts"
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/viraatdas/PromptGuard#readme",
   "dependencies": {
+    "@headlessui/react": "^1.7.19",
+    "@heroicons/react": "^2.2.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -30,11 +33,15 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "fastify": "^5.2.1",
+    "framer-motion": "^10.18.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "next": "^13.5.9",
     "node-nlp": "^5.0.0-alpha.5",
     "openai": "^4.89.0",
     "rate-limiter-flexible": "^6.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "uuid": "^11.1.0",
     "winston": "^3.17.0"
   },
@@ -44,12 +51,19 @@
     "@types/express": "^5.0.1",
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^22.13.11",
+    "@types/node": "^20.17.26",
+    "@types/react": "^18.3.19",
+    "@types/react-dom": "^18.3.5",
     "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.51.0",
+    "eslint-config-next": "^13.5.4",
     "jest": "^29.7.0",
     "nodemon": "^3.1.9",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.2.2"
   }
 }

@@ -1,30 +1,50 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
-import { setupRoutes } from './api/routes';
-import { logger } from './logger';
-import { errorHandler } from './middlewares/errorHandler';
+import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
 
-// Initialize express app
+// Create Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-// Setup API routes
-setupRoutes(app);
+// Basic routes
+app.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'PromptGuard API is running',
+    version: '1.0.0',
+    endpoints: [
+      {
+        path: '/api/proxy/models',
+        method: 'GET', 
+        description: 'Get available models based on subscription'
+      },
+      {
+        path: '/api/proxy/completion',
+        method: 'POST',
+        description: 'Send a prompt to an LLM provider'
+      },
+      {
+        path: '/api/billing/plans',
+        method: 'GET',
+        description: 'Get available subscription plans'
+      }
+    ]
+  });
+});
 
-// Error handling middleware
-app.use(errorHandler);
-
-// Start the server
+// Start server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  logger.info(`PromptGuard server running on port ${PORT}`);
-}); 
+  console.log(`PromptGuard server running on http://localhost:${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
+
+export default app; 

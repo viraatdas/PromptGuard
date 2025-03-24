@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 import { sanitizeInput } from '../sanitizer';
 import { analyzePrompt } from '../analyzer';
@@ -41,7 +41,7 @@ export const AVAILABLE_MODELS = {
 /**
  * Get available models endpoint
  */
-router.get('/models', async (req: AuthRequest, res, next) => {
+router.get('/models', async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const userId = req.user?.id || req.apiKey?.userId;
     if (!userId) {
@@ -88,7 +88,7 @@ router.post(
     body('options').optional().isObject(),
     body('rehydrateOutput').optional().isBoolean(),
   ],
-  async (req: AuthRequest, res, next) => {
+  async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       // Validate request
       const errors = validationResult(req);
@@ -190,7 +190,7 @@ router.post('/stream-completion', [
   body('provider').isString().notEmpty().withMessage('Provider is required'),
   body('options').optional().isObject(),
   body('rehydrateOutput').optional().isBoolean(),
-], async (req: AuthRequest, res, next) => {
+], async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     // Implement streaming logic similar to completion endpoint
     // Will need to use Server-Sent Events (SSE) for streaming
